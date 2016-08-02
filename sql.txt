@@ -1,0 +1,44 @@
+database is for stock something
+
+table   
+
+row is the data horizontal 
+
+column
+
+
+ CREATE TABLE classics (
+    -> author VARCHAR(128),
+    -> title VARCHAR(128),
+    -> type VARCHAR(16),
+    -> year CHAR(4));
+ 
+show tables
+describe classics
+ALTER TABLE classics ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY;
+INSERT INTO classics(author,title,type,year) VALUES('Mark Tawin','The Adventures of Tom Sawyer','Friction','1876');
+select * from classics;
+ALTER TABLE classics CHANGE type genre VARCHAR(16);
+update classics set author_id=1;
+update classics set author_id=2 where id=1;
+ ALTER TABLE classics ADD CONSTRAINT gbffbgnfnhg FOREIGN KEY (author_id) REFERENCES authors(id);
+ALTER TABLE classics MODIFY year SMALLINT;
+
+SELECT year_rank, artist, song_name, year 
+FROM tutorial.billboard_top_100_year_end 
+
+WHERE year_rank<=10 AND year >=2000
+ORDER BY year desc, year_rank	
+
+SELECT year_rank, artist, song_name, year 
+
+FROM tutorial.billboard_top_100_year_end
+ WHERE artist='Justin Timberlake' AND year >= 2007 AND year <= 2008
+
+SELECT state, SUM(population_estimate_2012)
+
+FROM tutorial.city_populations 
+
+GROUP BY state
+ORDER BY sum desc
+
