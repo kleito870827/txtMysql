@@ -109,7 +109,29 @@ HAVING SUM(raised_amount_usd) > (SELECT SUM(raised_amount_usd)
 
 ORDER BY total_amount desc
 
+SELECT investor_name, SUM(raised_amount_usd) as total_invested
 
+FROM tutorial.crunchbase_investments
+
+GROUP BY investor_name
+
+HAVING SUM(raised_amount_usd) > (SELECT SUM(raised_amount_usd)
+
+                                FROM tutorial.crunchbase_investments
+
+                                WHERE investor_name = 'Silver Lake Partners')
+
+ORDER BY total_invested asc
+
+SELECT name, continent FROM world
+WHERE continent IN (SELECT continent FROM world WHERE name = 'Argentina' OR name = 'Australia')
+ORDER BY name
+
+SELECT name, CONCAT(ROUND(population/(SELECT population FROM world WHERE name = 'Germany')*100),'%') 
+FROM world
+WHERE continent = 'Europe'
+
+http://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial
 
 
 
