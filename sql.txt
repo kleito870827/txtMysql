@@ -42,3 +42,77 @@ FROM tutorial.city_populations
 GROUP BY state
 ORDER BY sum desc
 
+select  SUM(west)  as west, SUM(midwest) as midwest, SUM(northeast) as northeast
+
+FROM tutorial.us_housing_units 
+
+where year >= 1983 and month = 1
+
+select year, month, south+west+midwest+northeast as total_units 
+
+FROM tutorial.us_housing_units 
+
+where year >= 2008
+
+select year, month, ROUND(south+west+midwest+northeast) as total_units 
+
+FROM tutorial.us_housing_units 
+
+where year >= 2008 AND year <= 2010 AND month = 7
+
+select year, month, ROUND(south+west+midwest+northeast) as total_units 
+
+FROM tutorial.us_housing_units 
+
+where year = 2008 OR year = 2001 OR year = 1980 OR year = 1979
+o where year IN(2008, 2001, 1980, 1979)
+
+select year, SUM(south) as sum_south, SUM(midwest) as sum_midwest,
+
+SUM(northeast) as sum_northeasth
+
+FROM tutorial.us_housing_units 
+
+where year >= 1987
+
+GROUP BY year 
+ORDER BY year asc
+
+select year, ROUND(CAST(SUM(south) AS numeric),1) as sum_south, SUM(midwest) as sum_midwest,
+SUM(northeast) as sum_northeasth
+
+FROM tutorial.us_housing_units 
+
+where year >= 1987
+
+GROUP BY year 
+ORDER BY year asc
+
+select company_name, investor_name, raised_amount_usd   
+FROM tutorial.crunchbase_investments 
+
+where UPPER(company_city) = 'MIAMI' AND funding_round_type = 'angel'
+AND raised_amount_usd > 0 
+ORDER BY raised_amount_usd asc
+
+SELECT company_name, SUM(raised_amount_usd) as total_amount
+
+FROM tutorial.crunchbase_investments
+
+GROUP BY company_name
+
+HAVING SUM(raised_amount_usd) > (SELECT SUM(raised_amount_usd)
+
+                                FROM tutorial.crunchbase_investments
+
+                                WHERE company_name = 'Facebook')
+
+ORDER BY total_amount desc
+
+
+
+
+
+
+
+
