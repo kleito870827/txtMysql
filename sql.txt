@@ -16,11 +16,17 @@ column
 show tables
 describe classics
 ALTER TABLE classics ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY;
+
 INSERT INTO classics(author,title,type,year) VALUES('Mark Tawin','The Adventures of Tom Sawyer','Friction','1876');
+
 select * from classics;
+
 ALTER TABLE classics CHANGE type genre VARCHAR(16);
+
 update classics set author_id=1;
 update classics set author_id=2 where id=1;
+UPDATE tasks set status='completed' WHERE status= 'la';
+
  ALTER TABLE classics ADD CONSTRAINT gbffbgnfnhg FOREIGN KEY (author_id) REFERENCES authors(id);
 ALTER TABLE classics MODIFY year SMALLINT;
 
@@ -133,6 +139,18 @@ WHERE continent = 'Europe'
 
 http://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial
 
+mysql-------
+# mysql -u root -p
+create database todoapp;
+use todoapp;
+CREATE TABLE tasks (
+    -> id INT AUTO_INCREMENT NOT NULL KEY,
+    -> description VARCHAR(1024) NOT NULL,
+    -> uid INT NOT NULL,
+    -> status VARCHAR(10));
+INSERT INTO tasks (description, uid, status)
+    -> VALUES('Insert a tasks into DB', 1, 'new');
+select * from tasks;
 
 
 
