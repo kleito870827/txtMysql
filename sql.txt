@@ -14,7 +14,7 @@ column
     -> year CHAR(4));
  
 show tables
-describe classics
+describe classics-> name table
 ALTER TABLE classics ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY;
 
 INSERT INTO classics(author,title,type,year) VALUES('Mark Tawin','The Adventures of Tom Sawyer','Friction','1876');
@@ -137,6 +137,83 @@ SELECT name, CONCAT(ROUND(population/(SELECT population FROM world WHERE name = 
 FROM world
 WHERE continent = 'Europe'
 
+select distinct year 
+
+from tutorial.aapl_historical_stock_price 
+
+order by year asc
+
+select COUNT(*)
+
+from (select distinct recipient_name
+from benn.movie_awards
+where winner='true') as sub 
+
+select player_name, weight, CASE WHEN weight > 250 THEN 'fluffy'
+
+                    WHEN weight > 200 THEN 'jacked'
+
+                    WHEN weight > 175 THEN 'athletic'
+
+                    ELSE 'flyweight'
+
+                    END 
+
+from benn.college_football_players 
+
+select size,  COUNT (*) 
+FROM (select acquirer_name, price, CASE WHEN price > 1000000000 THEN 'tres comas club'
+
+                                  WHEN price >= 500000000 THEN 'ballers'
+
+                                  ELSE 'little poor companies'
+
+                                  END as size
+
+from benn.mky_acquisitions 
+
+where price > 0 
+
+ORDER BY price desc) as x
+*
+GROUP BY size
+
+SELECT player_name, position, height, weight, division, conference
+
+FROM benn.college_football_players 
+JOIN benn.college_football_teams 
+
+on benn.college_football_players.school_name = benn.college_football_teams.school_name
+
+JOIN
+select benn.advanced_country_debt_indicators.country, 
+AVG(gdp_growth) as G, AVG(value) as V
+FROM benn.advanced_country_debt_indicators 
+
+JOIN benn.advanced_country_public_debt
+
+on benn.advanced_country_debt_indicators.id = benn.advanced_country_public_debt.id
+
+GROUP BY benn.advanced_country_debt_indicators.country
+
+UNION ALL
+select company_permalink, part, COUNT(*), status
+
+from  (select company_permalink, 'dataset_1' as part, investor_name  
+
+from tutorial.crunchbase_investments_part1
+UNION ALL
+
+select company_permalink, 'dataset_2' as part , investor_name
+
+from tutorial.crunchbase_investments_part2) as tbl1 
+
+JOIN tutorial.crunchbase_companies 
+on tbl1.company_permalink= tutorial.crunchbase_companies.permalink
+
+GROUP BY company_permalink, part, status
+
+
 http://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial
 
 mysql-------
@@ -151,6 +228,20 @@ CREATE TABLE tasks (
 INSERT INTO tasks (description, uid, status)
     -> VALUES('Insert a tasks into DB', 1, 'new');
 select * from tasks;
+
+load data from files:
+LOAD DATA INFILE 'country_debt.csv' INTO TABLE debt_gdp FIELDS TERMINATED BY ',' 
+ENCLOSED BY '' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+
+average
+SELECT country, AVG(gdp_growth) as average 
+FROM debt_gdp 
+WHERE year >= 1990 AND year <= 2000 GROUP BY country;
+
+exportar
+SELECT country, AVG(gdp_growth) as average  FROM debt_gdp WHERE year >= 1990 AND year <= 2000 GROUP BY country 
+INTO OUTFILE 'averageContry.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\r\n';
+
 
 
 
